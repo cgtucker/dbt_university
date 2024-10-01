@@ -3,43 +3,43 @@ with source as (
 ),
 renamed as (
     select
-        {{ adapter.quote("L_ORDERKEY") }} as order_id,
-        {{ adapter.quote("L_PARTKEY") }} as part_id,
-        {{ adapter.quote("L_SUPPKEY") }} as supplier_id,
-        {{ adapter.quote("L_LINENUMBER") }} as line_number,
-        {{ adapter.quote("L_QUANTITY") }} as quantity,
-        {{ adapter.quote("L_EXTENDEDPRICE") }} as extended_price,
-        {{ adapter.quote("L_DISCOUNT") }} as percent_discount,
-        {{ adapter.quote("L_TAX") }} as percent_tax,
-        {{ adapter.quote("L_RETURNFLAG") }} as return_flag_status,
-        {{ adapter.quote("L_LINESTATUS") }} as is_fulfilled,
-        {{ adapter.quote("L_SHIPDATE") }} as ship_date,
-        {{ adapter.quote("L_COMMITDATE") }} as commit_date,
-        {{ adapter.quote("L_RECEIPTDATE") }} as receipt_date,
-        {{ adapter.quote("L_SHIPINSTRUCT") }} as shipping_instructions,
-        {{ adapter.quote("L_SHIPMODE") }} as shipping_by,
-        {{ adapter.quote("L_COMMENT") }} as comment
+        {{ adapter.quote("L_ORDERKEY") }} as li_order_id,
+        {{ adapter.quote("L_PARTKEY") }} as li_part_id,
+        {{ adapter.quote("L_SUPPKEY") }} as li_supplier_id,
+        {{ adapter.quote("L_LINENUMBER") }} as li_line_number,
+        {{ adapter.quote("L_QUANTITY") }} as li_quantity,
+        {{ adapter.quote("L_EXTENDEDPRICE") }} as li_price_extended,
+        {{ adapter.quote("L_DISCOUNT") }} as li_percent_discount,
+        {{ adapter.quote("L_TAX") }} as li_percent_tax,
+        {{ adapter.quote("L_RETURNFLAG") }} as li_return_flag_status,
+        {{ adapter.quote("L_LINESTATUS") }} as li_is_fulfilled,
+        {{ adapter.quote("L_SHIPDATE") }} as li_date_shipped,
+        {{ adapter.quote("L_COMMITDATE") }} as li_date_commit,
+        {{ adapter.quote("L_RECEIPTDATE") }} as li_date_receipt,
+        {{ adapter.quote("L_SHIPINSTRUCT") }} as li_shipping_instructions,
+        {{ adapter.quote("L_SHIPMODE") }} as li_shipping_by,
+        {{ adapter.quote("L_COMMENT") }} as li_comment
 
     from source
 )
 renamed_typed_lineitem as (
     select
-        l.order_id::integer as order_id,
-        l.part_id::integer as part_id,
-        l.supplier_id::integer as supplier_id,
-        l.line_number::integer as line_number,
-        l.quantity::numeric(5,2) as quantity,
-        l.extended_price::numeric(8,2) as extended_price,
-        l.percent_discount::numeric(2,2) as percent_discount,
-        l.percent_tax::numeric(2,2) as percent_tax,
-        l.return_flag_status::char(1) as return_flag_status,
-        l.is_fulfilled::char(1) as is_fulfilled,
-        l.ship_date::timestamp as ship_date,
-        l.commit_date::timestamp as commit_date,
-        l.receipt_date::timestamp as receipt_date,
-        l.shipping_instructions::text as shipping_instructions,
-        l.shipping_by::varchar(7) as shipping_by,
-        l.comment::text as comment
+        l.li_order_id::integer                                 as li_order_id,
+        l.li_part_id::integer                                  as li_part_id,
+        l.li_supplier_id::integer                              as li_supplier_id,
+        l.li_line_number::integer                              as li_line_number,
+        l.li_quantity::numeric(5,2)                            as li_quantity,
+        l.li_price_extended::numeric(8,2)                      as li_price_extended,
+        l.li_percent_discount::numeric(2,2)                    as li_percent_discount,
+        l.li_percent_tax::numeric(2,2)                         as li_percent_tax,
+        l.li_return_flag_status::char(1)                       as li_return_flag_status,
+        l.li_is_fulfilled::char(1)                             as li_is_fulfilled,
+        l.li_date_shipped::timestamp                           as li_date_shipped,
+        l.li_date_commit::timestamp                            as li_date_commit,
+        l.li_date_receipt::timestamp                           as li_date_receipt,
+        l.li_shipping_instructions::text                       as li_shipping_instructions,
+        l.li_shipping_by::varchar(7)                           as li_shipping_by,
+        l.li_comment::text                                     as li_comment
     from renamed
 )
 select * from renamed_typed_lineitem
